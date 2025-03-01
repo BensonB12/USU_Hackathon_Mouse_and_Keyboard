@@ -30,6 +30,8 @@ A good resource for game design concepts is Game Maker’s Toolkit on YouTube. H
 - Azure
 - Figma
 - SVG Repo
+- Bootstrap
+- Bootstrap Icons
 
 # Indirect Third Party Resources
 
