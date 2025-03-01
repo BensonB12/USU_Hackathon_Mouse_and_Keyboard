@@ -11,18 +11,21 @@ export const BugHandler: FC<{
   const [bugs, setBugs] = useState<string[]>([]);
 
   const generateBug = useCallback(() => {
-    setBugs((prevBugs) => [...prevBugs, GenerateId(), GenerateId()]);
+    setBugs((prevBugs) => [...prevBugs, GenerateId()]);
   }, []);
 
   useEffect(() => {
     if (gameState !== GameState.Playing) return;
 
+    generateBug();
+
     const interval = setInterval(() => {
       generateBug();
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [gameState, generateBug]);
+
   // Create levels?
 
   return (

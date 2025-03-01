@@ -1,15 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Layout } from "./Layout";
 import cpuImage from "./assets/cpu-bolt-svgrepo-com.svg";
 import { CpuHealth } from "./CpuHealth";
 import { maxHealth } from "./Constants";
 import { BugHandler } from "./BugHandler";
 import { GameState } from "./GameState";
-import { StillBug } from "./StillBug";
+import { PlayerDescriptions } from "./PlayerDescriptions";
+import { BugExamples } from "./BugExamples";
 
 export const App = () => {
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
   const [gameState, setGameState] = useState<GameState>(GameState.BeforeGame);
+
+  const [time, setTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = window.setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } else if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    return () => {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isRunning]);
+
+  const handleStartPause = () => {
+    setIsRunning((prevIsRunning) => !prevIsRunning);
+  };
+
+  const handleReset = () => {
+    setIsRunning(false);
+    setTime(0);
+    setIsRunning(true);
+  };
 
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
@@ -17,9 +49,16 @@ export const App = () => {
 
   useEffect(() => {
     if (cpuHealth <= 0) {
+      handleStartPause();
       setGameState(GameState.GameOver);
     }
   }, [cpuHealth]);
+
+  const startGame = () => {
+    handleReset();
+    setGameState(GameState.Playing);
+    setCpuHealth(maxHealth);
+  };
 
   // four letters per bug
   // three rings per bug
@@ -31,26 +70,11 @@ export const App = () => {
   return (
     <Layout>
       <div className="h-100 d-flex justify-content-center align-items-center">
-        {gameState === GameState.BeforeGame && (
-          <div className="position-absolute w-100 top-0">
-            <div className="row text-center h1">
-              <div className="col">
-                <div className="text-white">
-                  Player One - You are the Keyboard
-                </div>
-              </div>
-              <div className="col">
-                <div className="text-white">Player Two - You are the Mouse</div>
-              </div>
-            </div>
-            <br />
-            <br />
-            <div className="text-center h3">
-              <div className="text-white">
-                You are both apart of the computer!
-              </div>
-              <div className="text-white">Defend your CPU from the Bugs!</div>
-            </div>
+        {gameState === GameState.BeforeGame ? (
+          <PlayerDescriptions />
+        ) : (
+          <div className="position-absolute top-0 text-white text-center h2">
+            {time}
           </div>
         )}
         <div className="h-25 d-flex flex-column justify-content-center align-items-center">
@@ -65,43 +89,17 @@ export const App = () => {
         </div>
         <BugHandler hitCpu={hitCPU} gameState={gameState} />
         {gameState === GameState.BeforeGame && (
+          <BugExamples startGame={startGame} />
+        )}
+        {gameState === GameState.GameOver && (
           <div className="position-absolute w-100 pt-5 mt-5">
-            <div className="row pt-5 mt-5">
-              <div className="col ps-4 pt-5 mt-5">
-                <StillBug letters={"abc"} rings={1} lettersFirst={false} />
-                <div className="text-white">
-                  This bug only has one layer of a 'click' shield
-                </div>
-                <br />
-                <div className="text-white">
-                  The keyboard cannot type attack this guy until the shield is
-                  taken down
-                </div>
-              </div>
-              <div className="col pt-5 mt-5">
-                <StillBug letters={"d"} rings={2} lettersFirst={true} />
-                <div className="text-white">
-                  This bug has a two 'click' shield
-                </div>
-                <br />
-                <div className="text-white">
-                  This bug has to have 'd' typed out before the mouse player can
-                  finish him off
-                </div>
-              </div>
-              <div className="col pt-5 mt-5 pe-4">
-                <StillBug letters={"ef"} rings={3} lettersFirst={false} />
-                <div className="text-white">
-                  This bug has a three 'click' shield
-                </div>
-                <br />
-                <button
-                  onClick={() => setGameState(GameState.Playing)}
-                  className="btn w-100 text-center btn-lg btn-outline-primary"
-                >
-                  Start Defending your CPU!
-                </button>
-              </div>
+            <div className="row pt-5 px-5 mt-5">
+              <button
+                onClick={() => startGame()}
+                className="btn text-center btn-lg btn-outline-primary"
+              >
+                Play Again
+              </button>
             </div>
           </div>
         )}
