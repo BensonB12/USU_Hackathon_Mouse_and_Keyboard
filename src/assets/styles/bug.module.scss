@@ -26,3 +26,7 @@
 .false {
   @include ring-style($light);
 }
+
+.no_focus {
+  pointer-events: none;
+}

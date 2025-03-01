@@ -1,35 +1,78 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import bugModule from "./assets/styles/bug.module.scss";
+import { maxLetters, maxRings } from "./Constants";
 
-export const Bug: FC<{ initialLetters: string; initialNumOfRings: number }> = ({
-  initialLetters,
-  initialNumOfRings,
-}) => {
-  const [numberOfRings] = useState(initialNumOfRings);
-  const [letters] = useState(initialLetters);
+export const Bug: FC<{
+  initialLetters: string;
+  initialNumOfRings: number;
+  lettersFirst: boolean;
+}> = ({ initialLetters, initialNumOfRings, lettersFirst }) => {
+  const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
+  const [letters, setLetters] = useState(initialLetters);
 
-  const lettersFirst: boolean = Math.random() < 0.5;
+  const isLettersActive = lettersFirst || numberOfRings === 0;
+  const isRingsActive = !lettersFirst || letters.length === 0;
 
-  const ActivePart = (isLetters: boolean) => {
-    if (isLetters) return lettersFirst || !numberOfRings;
-    return !lettersFirst || !letters;
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isLettersActive && letters) {
+        setLetters((oldLetters) => oldLetters.replace(e.key, ""));
+      } else if (!letters && !numberOfRings && numberOfRings < maxRings) {
+        // Add another ring
+      } else {
+        // Enlarge the circles to show they have to do the other one first
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [letters, numberOfRings, isLettersActive, isRingsActive]);
+
+  // const GenerateRandomLetter = () => {
+  //   return String.fromCharCode(97 + Math.floor(Math.random() * 26)); // Generates a random letter from a-z
+  // };
+
+  // Handle click event
+  const handleClick = () => {
+    if (isRingsActive && numberOfRings > 0) {
+      setNumberOfRings((oldNumberOfRings) => oldNumberOfRings - 1);
+    } else if (
+      !letters.length &&
+      !numberOfRings &&
+      letters.length < maxLetters
+    ) {
+      // Add another Letter to punish multi clicks
+      // setLetters((oldLetters) => oldLetters + GenerateRandomLetter());
+    } else {
+      // Enlarge the letters to show the other ones have to be fixed first
+    }
   };
-  console.log(`${ActivePart(false)}${numberOfRings}`);
 
   return (
     <div
       className={`${
-        bugModule[`${ActivePart(false)}${numberOfRings}`]
+        bugModule[`${isRingsActive}${numberOfRings}`]
       } p-2 position-relative`}
+      onClick={handleClick}
     >
       <div className="position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center w-100 h-100">
-        <div
-          className={`${ActivePart(true) ? "text-danger" : "text-light"} h2`}
+        <button
+          className={`btn btn-lg ${bugModule.no_focus} ${
+            isLettersActive ? "text-danger" : "text-light"
+          }`}
+          tabIndex={-1}
         >
-          {initialLetters}
-        </div>
+          {letters}
+        </button>
       </div>
-      <i className="bi-bug-fill display-4 d-block mx-auto" />
+      <i
+        className={`${
+          !numberOfRings && !letters ? "d-none" : ""
+        } bi-bug-fill display-4 d-block mx-auto`}
+      />
     </div>
   );
 };

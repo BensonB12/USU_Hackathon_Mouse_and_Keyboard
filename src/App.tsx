@@ -7,8 +7,12 @@ import { Bug } from "./Bug";
 
 export const App = () => {
   const [cpuHealth] = useState(maxHealth);
+
   // four letters per bug
-  //
+  // three rings per bug
+  // const lettersFirst: boolean = Math.random() < 0.5;
+  // Add title
+  // Add Timer
   return (
     <Layout>
       <div className="h-100 d-flex justify-content-center align-items-center">
@@ -16,12 +20,28 @@ export const App = () => {
           <CpuHealth health={cpuHealth} />
           <img className="h-25" src={cpuImage} alt="CPU" />
         </div>
-        <Bug initialLetters={"ASTD"} initialNumOfRings={1} />
-        <Bug initialLetters={"ASTD"} initialNumOfRings={1} />
-        <Bug initialLetters={"ASTD"} initialNumOfRings={2} />
-        <Bug initialLetters={"ASTD"} initialNumOfRings={2} />
-        <Bug initialLetters={"ASTD"} initialNumOfRings={3} />
-        <Bug initialLetters={"ASTD"} initialNumOfRings={3} />
+        <Bug initialLetters={"atd"} initialNumOfRings={1} lettersFirst={true} />
+        <Bug initialLetters={"atd"} initialNumOfRings={1} lettersFirst={true} />
+        <Bug
+          initialLetters={"atd"}
+          initialNumOfRings={2}
+          lettersFirst={false}
+        />
+        <Bug
+          initialLetters={"astd"}
+          initialNumOfRings={2}
+          lettersFirst={false}
+        />
+        <Bug
+          initialLetters={"astd"}
+          initialNumOfRings={3}
+          lettersFirst={false}
+        />
+        <Bug
+          initialLetters={"astd"}
+          initialNumOfRings={3}
+          lettersFirst={false}
+        />
       </div>
     </Layout>
   );
