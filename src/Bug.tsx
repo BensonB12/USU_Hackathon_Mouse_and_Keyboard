@@ -9,16 +9,24 @@ export const Bug: FC<{
   lettersFirst: boolean;
   hitCPU: (damage: number) => void;
   id: string;
-}> = ({ initialLetters, initialNumOfRings, lettersFirst, hitCPU, id }) => {
+  transformationOption: number;
+}> = ({
+  initialLetters,
+  initialNumOfRings,
+  lettersFirst,
+  hitCPU,
+  id,
+  transformationOption,
+}) => {
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
   const [letters, setLetters] = useState(initialLetters);
-  const transformationOption = Math.floor(Math.random() * 8) + 1;
 
   const isLettersActive = lettersFirst || numberOfRings === 0;
   const isRingsActive = !lettersFirst || letters.length === 0;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      e.preventDefault();
       if (isLettersActive && letters) {
         setLetters((oldLetters) => oldLetters.replace(e.key, ""));
       } else if (!letters && !numberOfRings && numberOfRings < maxRings) {

@@ -8,7 +8,9 @@ import { GenerateId } from "./Utils";
 
 export const App = () => {
   const [bugId] = useState(() => GenerateId());
+  const [bugLetterFirst] = useState(Math.random() > 0.5);
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
+  const [transformationOption] = useState(Math.floor(Math.random() * 8) + 1);
 
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
@@ -37,9 +39,10 @@ export const App = () => {
         <Bug
           initialLetters="abc"
           initialNumOfRings={3}
-          lettersFirst={true}
+          lettersFirst={bugLetterFirst}
           hitCPU={hitCPU}
           id={bugId}
+          transformationOption={transformationOption}
         />
       </div>
     </Layout>
