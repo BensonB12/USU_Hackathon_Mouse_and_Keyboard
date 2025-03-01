@@ -2,10 +2,12 @@ import { maxLetters, maxRings } from "./Constants";
 import { GenerateId, GenerateRandomLetter } from "./Utils";
 import { Bug } from "./Bug";
 import { FC, useCallback, useEffect, useState } from "react";
+import { GameState } from "./GameState";
 
-export const BugHandler: FC<{ hitCpu: (damage: number) => void }> = ({
-  hitCpu,
-}) => {
+export const BugHandler: FC<{
+  hitCpu: (damage: number) => void;
+  gameState: GameState;
+}> = ({ hitCpu, gameState }) => {
   const [bugs, setBugs] = useState<string[]>([]);
 
   const generateBug = useCallback(() => {
@@ -13,6 +15,8 @@ export const BugHandler: FC<{ hitCpu: (damage: number) => void }> = ({
   }, []);
 
   useEffect(() => {
+    if (gameState !== GameState.Playing) return;
+
     const interval = setInterval(() => {
       generateBug();
     }, 4000);

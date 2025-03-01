@@ -4,9 +4,11 @@ import cpuImage from "./assets/cpu-bolt-svgrepo-com.svg";
 import { CpuHealth } from "./CpuHealth";
 import { maxHealth } from "./Constants";
 import { BugHandler } from "./BugHandler";
+import { GameState } from "./GameState";
 
 export const App = () => {
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
+  const [gameState, setGameState] = useState<GameState>(GameState.BeforeGame);
 
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
@@ -14,7 +16,7 @@ export const App = () => {
 
   useEffect(() => {
     if (cpuHealth <= 0) {
-      console.log("Game Over");
+      setGameState(GameState.GameOver);
     }
   }, [cpuHealth]);
 
@@ -32,7 +34,7 @@ export const App = () => {
           <CpuHealth health={cpuHealth} />
           <img className="h-25" src={cpuImage} alt="CPU" />
         </div>
-        <BugHandler hitCpu={hitCPU} />
+        <BugHandler hitCpu={hitCPU} gameState={gameState} />
       </div>
     </Layout>
   );
