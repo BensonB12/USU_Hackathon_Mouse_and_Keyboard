@@ -13,41 +13,6 @@ export const App = () => {
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
   const [gameState, setGameState] = useState<GameState>(GameState.BeforeGame);
 
-  // const [isRunning, setIsRunning] = useState(false);
-  // const intervalRef = useRef<number | null>(null);
-  // const timeRef = useRef(0);
-  // const [, forceRender] = useState({});
-
-  // useEffect(() => {
-  //   console.log("Check for state");
-  //   if (isRunning) {
-  //     intervalRef.current = window.setInterval(() => {
-  //       timeRef.current += 1;
-  //       forceRender({});
-  //     }, 1000);
-  //   } else if (intervalRef.current !== null) {
-  //     clearInterval(intervalRef.current);
-  //     intervalRef.current = null;
-  //   }
-
-  //   return () => {
-  //     if (intervalRef.current !== null) {
-  //       clearInterval(intervalRef.current);
-  //     }
-  //   };
-  // }, [isRunning]);
-
-  const handleStartPause = () => {
-    // setIsRunning((prevIsRunning) => !prevIsRunning);
-  };
-
-  const handleReset = () => {
-    // setIsRunning(false);
-    // timeRef.current = 0;
-    // forceRender({});
-    // setIsRunning(true);
-  };
-
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
   };
@@ -55,13 +20,11 @@ export const App = () => {
   useEffect(() => {
     console.log("Check for cpu health");
     if (cpuHealth <= 0) {
-      handleStartPause();
       setGameState(GameState.GameOver);
     }
   }, [cpuHealth]);
 
   const startGame = () => {
-    handleReset();
     setGameState(GameState.Playing);
     setCpuHealth(maxHealth);
   };
