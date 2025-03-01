@@ -33,6 +33,9 @@ export const Bug: FC<{
       e.preventDefault();
       if (isLettersActive && letters) {
         setLetters((oldLetters) => oldLetters.replace(e.key, ""));
+        if (!numberOfRings && !letters) {
+          onDeath();
+        }
       } else if (!letters && !numberOfRings && numberOfRings < maxRings) {
         // Add another ring
       } else {
@@ -67,7 +70,6 @@ export const Bug: FC<{
           Math.abs(bugCenterX - centerX) <= tolerance &&
           Math.abs(bugCenterY - centerY) <= tolerance
         ) {
-          onDeath();
           hitCPU(10);
           setLetters("");
           setNumberOfRings(0);
@@ -83,6 +85,9 @@ export const Bug: FC<{
     console.log("clicked");
     if (isRingsActive && numberOfRings > 0) {
       setNumberOfRings((oldNumberOfRings) => oldNumberOfRings - 1);
+      if (!numberOfRings && !letters) {
+        onDeath();
+      }
     } else if (
       !letters.length &&
       !numberOfRings &&
