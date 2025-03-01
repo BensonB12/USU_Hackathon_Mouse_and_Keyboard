@@ -6,7 +6,9 @@ export const Bug: FC<{
   initialLetters: string;
   initialNumOfRings: number;
   lettersFirst: boolean;
-}> = ({ initialLetters, initialNumOfRings, lettersFirst }) => {
+  hitCPU: (damage: number) => void;
+  id: string;
+}> = ({ initialLetters, initialNumOfRings, lettersFirst, hitCPU, id }) => {
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
   const [letters, setLetters] = useState(initialLetters);
 
@@ -31,6 +33,32 @@ export const Bug: FC<{
     };
   }, [letters, numberOfRings, isLettersActive, isRingsActive]);
 
+  useEffect(() => {
+    if (!numberOfRings && !letters) return;
+
+    const bugElement = document.querySelector("#" + id);
+
+    if (bugElement) {
+      const rect = bugElement.getBoundingClientRect();
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const bugCenterX = rect.left + rect.width / 2;
+      const bugCenterY = rect.top + rect.height / 2;
+
+      const tolerance = 20;
+
+      if (
+        Math.abs(bugCenterX - centerX) <= tolerance &&
+        Math.abs(bugCenterY - centerY) <= tolerance
+      ) {
+        hitCPU(10);
+        setLetters("");
+        setNumberOfRings(0);
+      }
+    }
+  }, [numberOfRings, letters, id, hitCPU]);
+
   // const GenerateRandomLetter = () => {
   //   return String.fromCharCode(97 + Math.floor(Math.random() * 26)); // Generates a random letter from a-z
   // };
@@ -53,6 +81,7 @@ export const Bug: FC<{
 
   return (
     <div
+      id={id}
       className={`${
         bugModule[`${isRingsActive}${numberOfRings}`]
       } p-2 position-relative`}
