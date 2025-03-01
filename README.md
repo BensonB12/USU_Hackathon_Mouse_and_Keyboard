@@ -22,33 +22,17 @@ A good resource for game design concepts is Game Maker’s Toolkit on YouTube. H
 
 # Third Party Recourses
 
-- Figma
-  - To design product
-  - Only designed during said time
-- Github
-  - To store code & progress
-- Github Actions
-  - To push to Azure so it can be seen publicly
-- Azure
-  - Free personal account used
-  - Only to practice pipelining
 - Vite
-  - To see development progress
 - React
-  - Chosen Language to program in
-  - Used before for me, but not in this context
 - Typescript
-  - Because it is a better Javascript
+- Github
+- Github Actions
+- Azure
+- Figma
 - SVG Repo
-  - [https://www.svgrepo.com/](https://www.svgrepo.com/)
-  - For a free SVG's
-  - Said SVG's are free to use and license free
 
 # Indirect Third Party Resources
 
 - Javascript
-  - Because I have to
 - Node.js
-  - Just to get to NPM
 - NPM
-  - Just to get React
