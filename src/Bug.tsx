@@ -10,6 +10,7 @@ export const Bug: FC<{
   hitCPU: (damage: number) => void;
   id: string;
   transformationOption: number;
+  onDeath: () => void;
 }> = ({
   initialLetters,
   initialNumOfRings,
@@ -17,6 +18,7 @@ export const Bug: FC<{
   hitCPU,
   id,
   transformationOption,
+  onDeath,
 }) => {
   console.log("Bug");
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
@@ -65,6 +67,7 @@ export const Bug: FC<{
           Math.abs(bugCenterX - centerX) <= tolerance &&
           Math.abs(bugCenterY - centerY) <= tolerance
         ) {
+          onDeath();
           hitCPU(10);
           setLetters("");
           setNumberOfRings(0);
@@ -73,7 +76,7 @@ export const Bug: FC<{
     }, 2800);
 
     return () => clearInterval(interval);
-  }, [numberOfRings, letters, id, hitCPU]);
+  }, [numberOfRings, letters, id, hitCPU, onDeath]);
 
   // Handle click event
   const handleClick = () => {
@@ -98,7 +101,7 @@ export const Bug: FC<{
         id={id}
         className={`${bugModule[`${isRingsActive}${numberOfRings}`]} ${
           movementModule[`option-${transformationOption}`]
-        } p-2 position-relative text-centers ${bugModule.w}`}
+        } p-2 position-relative text-centers z-2 ${bugModule.w}`}
         onClick={handleClick}
       >
         <i

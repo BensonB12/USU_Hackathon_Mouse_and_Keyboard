@@ -7,7 +7,8 @@ import { GameState } from "./GameState";
 export const BugHandler: FC<{
   hitCpu: (damage: number) => void;
   gameState: GameState;
-}> = ({ hitCpu, gameState }) => {
+  onDeath: () => void;
+}> = ({ hitCpu, gameState, onDeath }) => {
   console.log("BugHandler");
   const [bugs, setBugs] = useState<string[]>([]);
   const bugsRef = useRef<string[]>([]);
@@ -37,6 +38,7 @@ export const BugHandler: FC<{
       {bugs.map((id) => (
         <Bug
           key={id}
+          onDeath={onDeath}
           initialLetters={Array.from(
             { length: Math.floor(Math.random() * maxLetters) + 1 },
             GenerateRandomLetter
