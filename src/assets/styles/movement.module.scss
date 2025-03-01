@@ -3,7 +3,7 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+    transform: translate(50vw, 50vh);
   }
 }
 
@@ -20,13 +20,12 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(-50vh - 50%), calc(50vh - 50%)); /* Moves down */
+    transform: translate(-50vh, 50vh);
   }
 }
 
 .option-2 {
-  top: 0%;
-  left: 100%;
+  left: 100vw;
   animation: fromTopRight 5s ease-out forwards;
 }
 
@@ -39,13 +38,13 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(-50vh - 50%), calc(-50vh - 50%)); /* Moves down */
+    transform: translate(-50vh, -50vh);
   }
 }
 
 .option-4 {
-  top: 100%;
-  left: 100%;
+  top: 100vh;
+  left: 100vw;
   animation: fromBottomLeft 5s ease-out forwards;
 }
 
@@ -58,13 +57,12 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(50vh - 50%), calc(-50vh - 50%)); /* Moves down */
+    transform: translate(50vh, -50vh);
   }
 }
 
 .option-3 {
-  top: 100%;
-  left: 0%;
+  top: 100vh;
   animation: fromBottomRight 5s ease-out forwards;
 }
 
@@ -77,13 +75,13 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(0, calc(-50vh - 50%));
+    transform: translate(0, -50vh);
   }
 }
 
 .option-5 {
-  top: 100%;
-  left: 50%;
+  top: 100vh;
+  left: 50vw;
   animation: fromMiddleTop 5s ease-out forwards;
 }
 
@@ -96,13 +94,13 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(-50vw - 50%), 0); /* Moves left */
+    transform: translate(-50vw, 0);
   }
 }
 
 .option-6 {
-  top: 50%;
-  left: 100%;
+  top: 50vh;
+  left: 100vw;
   animation: fromMiddleLeft 5s ease-out forwards;
 }
 
@@ -115,13 +113,12 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(0, calc(50vh - 50%)); /* Moves down */
+    transform: translate(0, 50vh);
   }
 }
 
 .option-7 {
-  top: 0%;
-  left: 50%;
+  left: 50vh;
   animation: fromMiddleBottom 5s ease-out forwards;
 }
 
@@ -134,13 +131,12 @@
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(calc(50vw - 50%), 0); /* Moves right */
+    transform: translate(50vw, 0);
   }
 }
 
 .option-8 {
-  top: 50%;
-  left: 0%;
+  top: 50vh;
   animation: fromMiddleRight 5s ease-out forwards;
 }
 

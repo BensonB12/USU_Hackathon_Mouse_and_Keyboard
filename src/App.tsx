@@ -7,6 +7,7 @@ import { Bug } from "./Bug";
 import { GenerateId } from "./Utils";
 
 export const App = () => {
+  const [bugId] = useState(() => GenerateId());
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
 
   const hitCPU = (damage: number) => {
@@ -38,7 +39,7 @@ export const App = () => {
           initialNumOfRings={3}
           lettersFirst={true}
           hitCPU={hitCPU}
-          id={GenerateId()}
+          id={bugId}
         />
       </div>
     </Layout>
