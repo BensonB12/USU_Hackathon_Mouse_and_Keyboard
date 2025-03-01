@@ -32,6 +32,7 @@ A good resource for game design concepts is Game Maker’s Toolkit on YouTube. H
 - SVG Repo
 - Bootstrap
 - Bootstrap Icons
+- Sass
 
 # Indirect Third Party Resources
 
