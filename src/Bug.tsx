@@ -45,28 +45,31 @@ export const Bug: FC<{
 
   useEffect(() => {
     if (!numberOfRings && !letters) return;
+    const interval = setInterval(() => {
+      const bugElement = document.querySelector("#" + id);
 
-    const bugElement = document.querySelector("#" + id);
+      if (bugElement) {
+        const rect = bugElement.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
 
-    if (bugElement) {
-      const rect = bugElement.getBoundingClientRect();
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
+        const bugCenterX = rect.left + rect.width / 2;
+        const bugCenterY = rect.top + rect.height / 2;
 
-      const bugCenterX = rect.left + rect.width / 2;
-      const bugCenterY = rect.top + rect.height / 2;
+        const tolerance = 50;
 
-      const tolerance = 20;
-
-      if (
-        Math.abs(bugCenterX - centerX) <= tolerance &&
-        Math.abs(bugCenterY - centerY) <= tolerance
-      ) {
-        hitCPU(10);
-        setLetters("");
-        setNumberOfRings(0);
+        if (
+          Math.abs(bugCenterX - centerX) <= tolerance &&
+          Math.abs(bugCenterY - centerY) <= tolerance
+        ) {
+          hitCPU(10);
+          setLetters("");
+          setNumberOfRings(0);
+        }
       }
-    }
+    }, 100); // Check every 100ms
+
+    return () => clearInterval(interval);
   }, [numberOfRings, letters, id, hitCPU]);
 
   // Handle click event
@@ -94,6 +97,11 @@ export const Bug: FC<{
         } p-2 position-relative ${bugModule.w}`}
         onClick={handleClick}
       >
+        <i
+          className={`${!numberOfRings && !letters ? "d-none" : ""} ${
+            movementModule[`rotate-${transformationOption}`]
+          } bi-bug-fill display-4 d-block mx-auto`}
+        />
         <div className="position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center w-100 h-100">
           <button
             className={`btn btn-lg ${bugModule.no_focus} ${
@@ -104,11 +112,6 @@ export const Bug: FC<{
             {letters}
           </button>
         </div>
-        <i
-          className={`${!numberOfRings && !letters ? "d-none" : ""} ${
-            movementModule[`rotate-${transformationOption}`]
-          } bi-bug-fill display-4 d-block mx-auto`}
-        />
       </div>
     </div>
   );
