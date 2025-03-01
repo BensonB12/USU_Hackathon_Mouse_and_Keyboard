@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Layout } from "./Layout";
 import cpuImage from "./assets/cpu-bolt-svgrepo-com.svg";
 import { CpuHealth } from "./CpuHealth";
@@ -9,38 +9,43 @@ import { PlayerDescriptions } from "./PlayerDescriptions";
 import { BugExamples } from "./BugExamples";
 
 export const App = () => {
+  console.log("App");
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
   const [gameState, setGameState] = useState<GameState>(GameState.BeforeGame);
 
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef<number | null>(null);
+  // const [isRunning, setIsRunning] = useState(false);
+  // const intervalRef = useRef<number | null>(null);
+  // const timeRef = useRef(0);
+  // const [, forceRender] = useState({});
 
-  useEffect(() => {
-    if (isRunning) {
-      intervalRef.current = window.setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    } else if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+  // useEffect(() => {
+  //   console.log("Check for state");
+  //   if (isRunning) {
+  //     intervalRef.current = window.setInterval(() => {
+  //       timeRef.current += 1;
+  //       forceRender({});
+  //     }, 1000);
+  //   } else if (intervalRef.current !== null) {
+  //     clearInterval(intervalRef.current);
+  //     intervalRef.current = null;
+  //   }
 
-    return () => {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isRunning]);
+  //   return () => {
+  //     if (intervalRef.current !== null) {
+  //       clearInterval(intervalRef.current);
+  //     }
+  //   };
+  // }, [isRunning]);
 
   const handleStartPause = () => {
-    setIsRunning((prevIsRunning) => !prevIsRunning);
+    // setIsRunning((prevIsRunning) => !prevIsRunning);
   };
 
   const handleReset = () => {
-    setIsRunning(false);
-    setTime(0);
-    setIsRunning(true);
+    // setIsRunning(false);
+    // timeRef.current = 0;
+    // forceRender({});
+    // setIsRunning(true);
   };
 
   const hitCPU = (damage: number) => {
@@ -48,6 +53,7 @@ export const App = () => {
   };
 
   useEffect(() => {
+    console.log("Check for cpu health");
     if (cpuHealth <= 0) {
       handleStartPause();
       setGameState(GameState.GameOver);
@@ -60,11 +66,6 @@ export const App = () => {
     setCpuHealth(maxHealth);
   };
 
-  // four letters per bug
-  // three rings per bug
-  // const lettersFirst: boolean = Math.random() < 0.5;
-  // Add title
-  // Add Timer
   // Bug Controller
 
   return (
@@ -74,7 +75,7 @@ export const App = () => {
           <PlayerDescriptions />
         ) : (
           <div className="position-absolute top-0 text-white text-center h2">
-            {time}
+            {/* {timeRef.current} */}TICK
           </div>
         )}
         <div className="h-25 d-flex flex-column justify-content-center align-items-center">

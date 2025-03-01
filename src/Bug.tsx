@@ -18,6 +18,7 @@ export const Bug: FC<{
   id,
   transformationOption,
 }) => {
+  console.log("Bug");
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
   const [letters, setLetters] = useState(initialLetters);
 
@@ -25,6 +26,7 @@ export const Bug: FC<{
   const isRingsActive = !lettersFirst || letters.length === 0;
 
   useEffect(() => {
+    console.log("Check for keydown");
     const handleKeyDown = (e: KeyboardEvent) => {
       e.preventDefault();
       if (isLettersActive && letters) {
@@ -41,9 +43,10 @@ export const Bug: FC<{
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [letters, numberOfRings, isLettersActive, isRingsActive]);
+  }, [isLettersActive, letters, numberOfRings]);
 
   useEffect(() => {
+    console.log("Check for collision");
     if (!numberOfRings && !letters) return;
     const interval = setInterval(() => {
       const bugElement = document.querySelector("#" + id);
@@ -67,13 +70,14 @@ export const Bug: FC<{
           setNumberOfRings(0);
         }
       }
-    }, 100); // Check every 100ms
+    }, 2800);
 
     return () => clearInterval(interval);
   }, [numberOfRings, letters, id, hitCPU]);
 
   // Handle click event
   const handleClick = () => {
+    console.log("clicked");
     if (isRingsActive && numberOfRings > 0) {
       setNumberOfRings((oldNumberOfRings) => oldNumberOfRings - 1);
     } else if (
