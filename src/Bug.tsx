@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import bugModule from "./assets/styles/bug.module.scss";
+import movementModule from "./assets/styles/movement.module.scss";
 import { maxLetters, maxRings } from "./Constants";
 
 export const Bug: FC<{
@@ -11,6 +12,7 @@ export const Bug: FC<{
 }> = ({ initialLetters, initialNumOfRings, lettersFirst, hitCPU, id }) => {
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
   const [letters, setLetters] = useState(initialLetters);
+  const transformationOption = Math.floor(Math.random() * 8) + 1;
 
   const isLettersActive = lettersFirst || numberOfRings === 0;
   const isRingsActive = !lettersFirst || letters.length === 0;
@@ -59,10 +61,6 @@ export const Bug: FC<{
     }
   }, [numberOfRings, letters, id, hitCPU]);
 
-  // const GenerateRandomLetter = () => {
-  //   return String.fromCharCode(97 + Math.floor(Math.random() * 26)); // Generates a random letter from a-z
-  // };
-
   // Handle click event
   const handleClick = () => {
     if (isRingsActive && numberOfRings > 0) {
@@ -80,28 +78,30 @@ export const Bug: FC<{
   };
 
   return (
-    <div
-      id={id}
-      className={`${
-        bugModule[`${isRingsActive}${numberOfRings}`]
-      } p-2 position-relative`}
-      onClick={handleClick}
-    >
-      <div className="position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center w-100 h-100">
-        <button
-          className={`btn btn-lg ${bugModule.no_focus} ${
-            isLettersActive ? "text-danger" : "text-light"
-          }`}
-          tabIndex={-1}
-        >
-          {letters}
-        </button>
+    <div className="position-absolute h-100 w-100 ">
+      <div
+        id={id}
+        className={`${bugModule[`${isRingsActive}${numberOfRings}`]} ${
+          movementModule[`option-${transformationOption}`]
+        } p-2 position-relative ${bugModule.w}`}
+        onClick={handleClick}
+      >
+        <div className="position-absolute top-50 start-50 translate-middle d-flex justify-content-center align-items-center w-100 h-100">
+          <button
+            className={`btn btn-lg ${bugModule.no_focus} ${
+              isLettersActive ? "text-danger" : "text-light"
+            }`}
+            tabIndex={-1}
+          >
+            {letters}
+          </button>
+        </div>
+        <i
+          className={`${!numberOfRings && !letters ? "d-none" : ""} ${
+            movementModule[`rotate-${transformationOption}`]
+          } bi-bug-fill display-4 d-block mx-auto`}
+        />
       </div>
-      <i
-        className={`${
-          !numberOfRings && !letters ? "d-none" : ""
-        } bi-bug-fill display-4 d-block mx-auto`}
-      />
     </div>
   );
 };

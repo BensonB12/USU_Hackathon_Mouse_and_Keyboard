@@ -1,0 +1,149 @@
+@keyframes fromTopLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+  }
+}
+
+.option-1 {
+  animation: fromTopLeft 5s ease-out forwards;
+}
+
+.rotate-1 {
+  rotate: 140deg;
+}
+
+@keyframes fromTopRight {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(-50vh - 50%), calc(50vh - 50%)); /* Moves down */
+  }
+}
+
+.option-2 {
+  top: 0%;
+  left: 100%;
+  animation: fromTopRight 5s ease-out forwards;
+}
+
+.rotate-2 {
+  rotate: 240deg;
+}
+
+@keyframes fromBottomLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(-50vh - 50%), calc(-50vh - 50%)); /* Moves down */
+  }
+}
+
+.option-4 {
+  top: 100%;
+  left: 100%;
+  animation: fromBottomLeft 5s ease-out forwards;
+}
+
+.rotate-4 {
+  rotate: 300deg;
+}
+
+@keyframes fromBottomRight {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(50vh - 50%), calc(-50vh - 50%)); /* Moves down */
+  }
+}
+
+.option-3 {
+  top: 100%;
+  left: 0%;
+  animation: fromBottomRight 5s ease-out forwards;
+}
+
+.rotate-3 {
+  rotate: 60deg;
+}
+
+@keyframes fromMiddleTop {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, calc(-50vh - 50%));
+  }
+}
+
+.option-5 {
+  top: 100%;
+  left: 50%;
+  animation: fromMiddleTop 5s ease-out forwards;
+}
+
+.rotate-5 {
+  rotate: 0deg;
+}
+
+@keyframes fromMiddleLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(-50vw - 50%), 0); /* Moves left */
+  }
+}
+
+.option-6 {
+  top: 50%;
+  left: 100%;
+  animation: fromMiddleLeft 5s ease-out forwards;
+}
+
+.rotate-6 {
+  rotate: 270deg;
+}
+
+@keyframes fromMiddleBottom {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, calc(50vh - 50%)); /* Moves down */
+  }
+}
+
+.option-7 {
+  top: 0%;
+  left: 50%;
+  animation: fromMiddleBottom 5s ease-out forwards;
+}
+
+.rotate-7 {
+  rotate: 180deg;
+}
+
+@keyframes fromMiddleRight {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(calc(50vw - 50%), 0); /* Moves right */
+  }
+}
+
+.option-8 {
+  top: 50%;
+  left: 0%;
+  animation: fromMiddleRight 5s ease-out forwards;
+}
+
+.rotate-8 {
+  rotate: 90deg;
+}
