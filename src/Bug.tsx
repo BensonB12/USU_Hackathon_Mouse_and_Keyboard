@@ -94,7 +94,7 @@ export const Bug: FC<{
         id={id}
         className={`${bugModule[`${isRingsActive}${numberOfRings}`]} ${
           movementModule[`option-${transformationOption}`]
-        } p-2 position-relative ${bugModule.w}`}
+        } p-2 position-relative text-centers ${bugModule.w}`}
         onClick={handleClick}
       >
         <i

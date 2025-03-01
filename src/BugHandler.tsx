@@ -22,7 +22,7 @@ export const BugHandler: FC<{
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [generateBug]);
+  }, [gameState, generateBug]);
   // Create levels?
 
   return (
