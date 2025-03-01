@@ -3,14 +3,10 @@ import { Layout } from "./Layout";
 import cpuImage from "./assets/cpu-bolt-svgrepo-com.svg";
 import { CpuHealth } from "./CpuHealth";
 import { maxHealth } from "./Constants";
-import { Bug } from "./Bug";
-import { GenerateId } from "./Utils";
+import { BugHandler } from "./BugHandler";
 
 export const App = () => {
-  const [bugId] = useState(() => GenerateId());
-  const [bugLetterFirst] = useState(Math.random() > 0.5);
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
-  const [transformationOption] = useState(Math.floor(Math.random() * 8) + 1);
 
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
@@ -36,14 +32,7 @@ export const App = () => {
           <CpuHealth health={cpuHealth} />
           <img className="h-25" src={cpuImage} alt="CPU" />
         </div>
-        <Bug
-          initialLetters="abc"
-          initialNumOfRings={3}
-          lettersFirst={bugLetterFirst}
-          hitCPU={hitCPU}
-          id={bugId}
-          transformationOption={transformationOption}
-        />
+        <BugHandler hitCpu={hitCPU} />
       </div>
     </Layout>
   );

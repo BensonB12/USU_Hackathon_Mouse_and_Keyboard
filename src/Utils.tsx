@@ -3,5 +3,5 @@ export const GenerateRandomLetter = () => {
 };
 
 export const GenerateId = () => {
-  return "id" + Math.floor(Math.random() * 1234);
+  return "id" + Math.floor(Math.random() * 999999);
 };
