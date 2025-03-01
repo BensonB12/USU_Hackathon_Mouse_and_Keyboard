@@ -10,7 +10,6 @@ export const Bug: FC<{
   hitCPU: (damage: number) => void;
   id: string;
   transformationOption: number;
-  onDeath: () => void;
 }> = ({
   initialLetters,
   initialNumOfRings,
@@ -18,7 +17,6 @@ export const Bug: FC<{
   hitCPU,
   id,
   transformationOption,
-  onDeath,
 }) => {
   console.log("Bug");
   const [numberOfRings, setNumberOfRings] = useState(initialNumOfRings);
@@ -33,9 +31,6 @@ export const Bug: FC<{
       e.preventDefault();
       if (isLettersActive && letters) {
         setLetters((oldLetters) => oldLetters.replace(e.key, ""));
-        if (!numberOfRings && !letters) {
-          onDeath();
-        }
       } else if (!letters && !numberOfRings && numberOfRings < maxRings) {
         // Add another ring
       } else {
@@ -78,16 +73,13 @@ export const Bug: FC<{
     }, 2800);
 
     return () => clearInterval(interval);
-  }, [numberOfRings, letters, id, hitCPU, onDeath]);
+  }, [numberOfRings, letters, id, hitCPU]);
 
   // Handle click event
   const handleClick = () => {
     console.log("clicked");
     if (isRingsActive && numberOfRings > 0) {
       setNumberOfRings((oldNumberOfRings) => oldNumberOfRings - 1);
-      if (!numberOfRings && !letters) {
-        onDeath();
-      }
     } else if (
       !letters.length &&
       !numberOfRings &&

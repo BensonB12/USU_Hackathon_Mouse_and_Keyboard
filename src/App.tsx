@@ -12,7 +12,6 @@ export const App = () => {
   console.log("App");
   const [cpuHealth, setCpuHealth] = useState(maxHealth);
   const [gameState, setGameState] = useState<GameState>(GameState.BeforeGame);
-  const [score, setScore] = useState(0);
 
   const hitCPU = (damage: number) => {
     setCpuHealth((oldHealth) => Math.max(oldHealth - damage, 0));
@@ -30,22 +29,12 @@ export const App = () => {
     setCpuHealth(maxHealth);
   };
 
-  const onDeath = () => {
-    setScore((oldScore) => oldScore + 1);
-  };
-
   // Bug Controller
 
   return (
     <Layout>
       <div className="h-100 d-flex justify-content-center align-items-center">
-        {gameState === GameState.BeforeGame ? (
-          <PlayerDescriptions />
-        ) : (
-          <div className="position-absolute top-0 text-white text-center h2">
-            {score} Bugs Squashed
-          </div>
-        )}
+        {gameState === GameState.BeforeGame && <PlayerDescriptions />}
         <div className="h-25 d-flex flex-column justify-content-center align-items-center">
           {gameState === GameState.BeforeGame && (
             <div className="text-white text-center">
@@ -56,7 +45,7 @@ export const App = () => {
           <CpuHealth health={cpuHealth} />
           <img className="h-25" src={cpuImage} alt="CPU" />
         </div>
-        <BugHandler hitCpu={hitCPU} onDeath={onDeath} gameState={gameState} />
+        <BugHandler hitCpu={hitCPU} gameState={gameState} />
         {gameState === GameState.BeforeGame && (
           <BugExamples startGame={startGame} />
         )}
