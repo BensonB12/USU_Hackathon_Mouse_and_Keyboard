@@ -71,13 +71,7 @@ export const App = () => {
   return (
     <Layout>
       <div className="h-100 d-flex justify-content-center align-items-center">
-        {gameState === GameState.BeforeGame ? (
-          <PlayerDescriptions />
-        ) : (
-          <div className="position-absolute top-0 text-white text-center h2">
-            {/* {timeRef.current} */}TICK
-          </div>
-        )}
+        {gameState === GameState.BeforeGame && <PlayerDescriptions />}
         <div className="h-25 d-flex flex-column justify-content-center align-items-center">
           {gameState === GameState.BeforeGame && (
             <div className="text-white text-center">
