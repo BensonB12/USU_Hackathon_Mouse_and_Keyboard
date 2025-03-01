@@ -3,7 +3,7 @@ import healthModule from "./assets/styles/health.module.scss";
 
 export const CpuHealth: FC<{ health: number }> = ({ health }) => {
   return (
-    <div>
+    <div className="mb-1">
       <div
         className={`bg-primary border-primary border p-1 rounded position-absolute ${
           healthModule[`h${health}`]

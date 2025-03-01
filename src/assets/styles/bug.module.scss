@@ -1,0 +1,28 @@
+@import "./custom.scss";
+
+// Mixin to generate border styles
+@mixin ring-style($color) {
+  &1 {
+    border: 2px dotted $color;
+  }
+  &2 {
+    border: 2px dashed $color;
+  }
+  &3 {
+    border: 2px solid $color;
+  }
+  &1,
+  &2,
+  &3 {
+    border-radius: 50%;
+  }
+}
+
+// Apply mixin for both true and false cases
+.true {
+  @include ring-style($danger);
+}
+
+.false {
+  @include ring-style($light);
+}

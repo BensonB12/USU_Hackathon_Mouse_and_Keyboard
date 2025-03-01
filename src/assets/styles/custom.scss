@@ -3,7 +3,9 @@ $font-family-base: "Inconsolata";
 
 // Default variable overrides
 $primary: #5f77c6;
-$dark: #5d5555;
+$dark: #3d3939;
+$light: #898484;
+$warning: #799d63;
 
 // Required
 @import "../../../node_modules/bootstrap/scss/functions";
