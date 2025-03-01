@@ -1,5 +1,9 @@
 # USU 24 hour Hackathon 2025
 
+[Link to production](https://polite-dune-0bbfb731e.6.azurestaticapps.net/)
+
+![QR code for production: https://polite-dune-0bbfb731e.6.azurestaticapps.net/](./src/assets/defend-the-computer-qr-code.png)
+
 ### The topic is 'Local Multi-Player'
 
 Created in 20 hours by Benson Bird _Resume Attached_
